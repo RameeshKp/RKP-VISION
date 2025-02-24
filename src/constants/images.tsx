@@ -10,5 +10,6 @@ enum Images {
     face = require('../assets/images/face.jpeg'),
     translator = require('../assets/images/translator.jpeg'),
     imageGeneration = require('../assets/images/imageGeneration.jpeg'),
+    home = require('../assets/images/home.png'),
 }
 export { Images };

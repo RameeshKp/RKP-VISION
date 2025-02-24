@@ -14,7 +14,7 @@ const WelcomeScreen = () => {
         <SafeAreaView style={styles.container}>
             <View style={styles.headerContainer}>
                 <TouchableOpacity onPress={() => BackHandler.exitApp()}>
-                    <Image source={Images.down} style={styles.backIcon} />
+                    <Image source={Images.home} style={styles.backIcon} />
                 </TouchableOpacity>
                 <View style={styles.headerTitleContainer}>
                     <Text style={styles.headerTitle}>Welcome</Text>
@@ -67,13 +67,14 @@ const styles = StyleSheet.create({
         flexDirection: 'row'
     },
     backIcon: {
-        height: 13,
-        width: 21,
+        height: 25,
+        width: 25,
         resizeMode: 'contain',
-        transform: [{ rotate: '90deg' }],
+        position: 'absolute',
+        top: -15
     },
     headerTitleContainer: {
-        width: screenSize.width - 61,
+        width: screenSize.width - 40,
         alignItems: 'center',
     },
     headerTitle: {
