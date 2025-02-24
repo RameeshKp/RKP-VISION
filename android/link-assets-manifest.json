@@ -1,0 +1,37 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "src/assets/fonts/FontsFree-Net-SFProDisplay-Semibold.ttf",
+      "sha1": "9dd7c8e0a103ff7d074b046272a87e4a0565e6b2"
+    },
+    {
+      "path": "src/assets/fonts/Helvetica Neue W01 66 Medium It.ttf",
+      "sha1": "69941d92a4a7d47540f9d35f070580a66b25e1e6"
+    },
+    {
+      "path": "src/assets/fonts/HelveticaNeue-Bold.ttf",
+      "sha1": "babbcda7a1821086711b891281f60e0360ec9ece"
+    },
+    {
+      "path": "src/assets/fonts/HelveticaNeue.ttf",
+      "sha1": "2e9cfee3b92029ae142909e8088582c0ecab4ac9"
+    },
+    {
+      "path": "src/assets/fonts/HelveticaNeueCyr-BoldItalic.ttf",
+      "sha1": "a208a0722fb6fe5b830213257c5222e217585231"
+    },
+    {
+      "path": "src/assets/fonts/HelveticaNeueCyr-Medium.ttf",
+      "sha1": "38a8ff0bd9b7c52fdb6e77aea9a5cc627deee42b"
+    },
+    {
+      "path": "src/assets/fonts/SF-Pro-Display-Regular.ttf",
+      "sha1": "8c0d94e268fafa5b5f47f6948dba30e358bf2668"
+    },
+    {
+      "path": "src/assets/fonts/helvetica-light-587ebe5a59211.ttf",
+      "sha1": "a7d02da118efb487c83136ea82b1d40e19dc019b"
+    }
+  ]
+}
