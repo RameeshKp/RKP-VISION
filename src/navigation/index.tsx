@@ -19,7 +19,7 @@ const Navigation = (item: any) => {
 
     return (
         <>
-            <StatusBar backgroundColor="transparent" />
+
             <Stack.Navigator
                 screenOptions={{ headerShown: false, animation: 'fade' }}
                 initialRouteName={ScreenName.WELCOME}
