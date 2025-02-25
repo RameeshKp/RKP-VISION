@@ -1,15 +1,10 @@
 import axios from 'axios';
-
-const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent'; // Replace with the actual API endpoint
-const API_KEY = 'AIzaSyDiKFjhUxxecysS4s9DpVXy9915Nbm8UIw'; // Replace with your API key
-const YOUR_FACE_API_KEY = 'H7NEi0SQZdOfzTnvkSG5nGR1Z-awpahc';
-const YOUR_FACE_API_SECRET = 'W_bIL8hNls2Sa44c_2RhnJITgVQVI2x9';
-const OPENAI_API_KEY = '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'
+import Config from "react-native-config";
 
 export const sendMessageToGemini = async (message: string) => {
     try {
         const response = await axios.post(
-            `${GEMINI_API_URL}?key=${API_KEY}`,
+            `${Config?.GEMINI_API_URL}?key=${Config?.GEMINI_API_KEY}`,
             {
                 contents: [
                     {
@@ -37,7 +32,7 @@ export const sendMessageToGemini = async (message: string) => {
 };
 
 
-const GEMINI_IMAGE_API_URL = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
+const GEMINI_IMAGE_API_URL = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${Config?.GEMINI_API_KEY}`;
 
 export const sendImageToGemini = async (base64Image: string): Promise<string> => {
     try {
@@ -63,8 +58,8 @@ export const sendImageToGemini = async (base64Image: string): Promise<string> =>
 export const compareFaces = async (base64Image1: string, base64Image2: string) => {
     try {
         const formData = new FormData();
-        formData.append('api_key', YOUR_FACE_API_KEY);
-        formData.append('api_secret', YOUR_FACE_API_SECRET);
+        formData.append('api_key', Config?.YOUR_FACE_API_KEY);
+        formData.append('api_secret', Config?.YOUR_FACE_API_SECRET);
         formData.append('image_base64_1', base64Image1);
         formData.append('image_base64_2', base64Image2);
 

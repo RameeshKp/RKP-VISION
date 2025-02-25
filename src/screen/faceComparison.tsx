@@ -18,6 +18,7 @@ import { launchImageLibrary } from 'react-native-image-picker';
 import { compareFaces } from '../services/geminiService';
 import axios from 'axios';
 import ImageResizer from 'react-native-image-resizer';
+import Config from 'react-native-config';
 
 const FaceComparison: React.FC = () => {
     const navigation: any = useNavigation();
@@ -28,8 +29,7 @@ const FaceComparison: React.FC = () => {
     const [matchPercentage, setMatchPercentage] = useState<number | null>(null);
     const [babyImage, setBabyImage] = useState<string | null>(null);
 
-    const YOUR_FACE_API_KEY = 'H7NEi0SQZdOfzTnvkSG5nGR1Z-awpahc';
-    const YOUR_FACE_API_SECRET = 'W_bIL8hNls2Sa44c_2RhnJITgVQVI2x9';
+
 
     const compressImage = async (uri: string) => {
         try {
@@ -84,8 +84,8 @@ const FaceComparison: React.FC = () => {
             const response = await axios.post(
                 'https://api-us.faceplusplus.com/imagepp/v1/mergeface',
                 new URLSearchParams({
-                    api_key: YOUR_FACE_API_KEY,
-                    api_secret: YOUR_FACE_API_SECRET,
+                    api_key: Config?.YOUR_FACE_API_KEY as string,
+                    api_secret: Config?.YOUR_FACE_API_SECRET as string,
                     template_base64: image1.base64,
                     merge_base64: image2.base64,
                     merge_rate: '50',

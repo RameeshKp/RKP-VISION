@@ -10,8 +10,6 @@
     "test": "jest"
   },
   "dependencies": {
-    "react": "19.0.0",
-    "react-native": "0.78.0",
     "@react-native-picker/picker": "^2.11.0",
     "@react-navigation/native-stack": "^7.2.0",
     "axios": "^1.7.9",
@@ -19,10 +17,13 @@
     "cors": "^2.8.5",
     "express": "^4.21.2",
     "openai": "^4.82.0",
-    "react-native-dotenv": "^3.4.11",
+    "react": "19.0.0",
+    "react-native": "0.78.0",
+    "react-native-config": "^1.5.5",
     "react-native-image-crop-picker": "^0.42.0",
     "react-native-image-picker": "^8.0.0",
     "react-native-image-resizer": "^1.4.5",
+    "react-native-linear-gradient": "^2.8.3",
     "react-native-permissions": "^5.2.5",
     "react-native-safe-area-context": "^5.0.0",
     "react-native-screens": "^4.3.0",

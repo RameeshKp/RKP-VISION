@@ -17,9 +17,8 @@ import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 import { Buffer } from 'buffer';
 import AnimatedButton from '../components/AnimatedButton';
+import Config from 'react-native-config';
 
-const API_KEY = "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";
-const ENDPOINT = "https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-2";
 
 const ImageGeneration: React.FC = () => {
     const navigation: any = useNavigation();
@@ -34,12 +33,11 @@ const ImageGeneration: React.FC = () => {
         setError(null);
 
         try {
-            const response = await axios.post(
-                ENDPOINT,
+            const response: any = await axios.post(
+                Config?.HUGGING_FACE_IMAGE_ENDPOINT as string,
                 { inputs: prompt },
-                { headers: { Authorization: `Bearer ${API_KEY}` }, responseType: "arraybuffer" }
+                { headers: { Authorization: `Bearer ${Config?.HUGGING_FACE_IMAGE_API_KEY}` }, responseType: "arraybuffer" }
             );
-
             const base64Image: any = `data:image/png;base64,${Buffer.from(response.data).toString("base64")}`;
 
             setImage(base64Image);

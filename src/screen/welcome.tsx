@@ -1,16 +1,77 @@
-import React from 'react';
-import { View, Text, StyleSheet, Image, Dimensions, SafeAreaView, TouchableOpacity, BackHandler, ScrollView } from 'react-native';
+import React, { useEffect, useRef } from 'react';
+import {
+    View,
+    Text,
+    StyleSheet,
+    Image,
+    Dimensions,
+    SafeAreaView,
+    TouchableOpacity,
+    BackHandler,
+    ScrollView,
+    Animated
+} from 'react-native';
 import { Images } from '../constants/images';
 import { ScreenName, screenSize } from '../constants/screens';
 import { useNavigation } from '@react-navigation/native';
 import { Fonts } from '../constants/fonts';
+import LinearGradient from 'react-native-linear-gradient';
 
 const { width } = Dimensions.get('window');
+
+// Animated Gradient Background Component
+const AnimatedGradientBackground = ({ children }: any) => {
+    const colorAnimation = useRef(new Animated.Value(0)).current;
+
+    useEffect(() => {
+        Animated.loop(
+            Animated.sequence([
+                Animated.timing(colorAnimation, {
+                    toValue: 1,
+                    duration: 5000,
+                    useNativeDriver: false, // ✅ Use false because colors can't be animated natively
+                }),
+                Animated.timing(colorAnimation, {
+                    toValue: 0,
+                    duration: 5000,
+                    useNativeDriver: false,
+                }),
+            ])
+        ).start();
+    }, [colorAnimation]);
+
+    // Convert hex colors to interpolated RGB values
+    const backgroundColor = colorAnimation.interpolate({
+        inputRange: [0, 0.2, 0.4, 0.6, 0.8, 1], // Expanding the range
+        outputRange: [
+            'rgb(255,0,0)',    // Red
+            'rgb(255,165,0)',  // Orange
+            'rgb(255,255,0)',  // Yellow
+            'rgb(0,255,0)',    // Green
+            'rgb(0,0,255)',    // Blue
+            'rgb(128,0,128)'   // Purple
+        ],
+    });
+
+    return (
+        <Animated.View style={[styles.gradientBackground, { backgroundColor }]}>
+            {/* <LinearGradient
+                colors={["orange", "red"]}
+                style={styles.gradientBackground}
+            >
+                {children}
+            </LinearGradient> */}
+            {children}
+        </Animated.View>
+    );
+};
+
 
 const WelcomeScreen = () => {
     const navigation: any = useNavigation();
 
     return (
+        <AnimatedGradientBackground>
         <SafeAreaView style={styles.container}>
             <View style={styles.headerContainer}>
                 <TouchableOpacity onPress={() => BackHandler.exitApp()}>
@@ -28,7 +89,7 @@ const WelcomeScreen = () => {
                         <TouchableOpacity
                             key={index}
                             style={[styles.menuItem, index >= 2 && { marginTop: 20 }]}
-                            onPress={() => navigation.navigate(item.screen)}
+                            onPress={() => navigation.navigate(item?.screen)}
                         >
                             <Image source={item.image} style={styles.menuImage} />
                             <Text style={styles.menuText}>{item.label}</Text>
@@ -37,11 +98,11 @@ const WelcomeScreen = () => {
                 </View>
             </ScrollView>
         </SafeAreaView>
+        </AnimatedGradientBackground>
     );
 };
 
 const menuItems = [
-
     { label: 'RKP Genie', image: Images.chatbot, screen: ScreenName.AI_BOT },
     { label: 'Face Comparison', image: Images.face, screen: ScreenName.FACE_COMPARISON },
     { label: 'Image Explorer', image: Images.imageDescriber, screen: ScreenName.IMAGE_EXPLORER },
@@ -49,13 +110,14 @@ const menuItems = [
     { label: 'Translate', image: Images.translator, screen: ScreenName.TRANSLATE },
     { label: 'My Expense', image: Images.myExpense, screen: ScreenName.EXPENSE },
     { label: 'Gallery', image: Images.myPhotos, screen: ScreenName.GALLERY },
-
 ];
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#f8f9fa',
+    },
+    gradientBackground: {
+        flex: 1,
     },
     headerContainer: {
         padding: 20,
@@ -71,7 +133,8 @@ const styles = StyleSheet.create({
         width: 25,
         resizeMode: 'contain',
         position: 'absolute',
-        top: -15
+        top: -15,
+        tintColor: '#FFFFFF'
     },
     headerTitleContainer: {
         width: screenSize.width - 40,
@@ -79,7 +142,7 @@ const styles = StyleSheet.create({
     },
     headerTitle: {
         fontFamily: Fonts.semiBold_SF,
-        color: '#000000',
+        color: '#ffffff',
         fontSize: 20,
         textTransform: 'uppercase'
     },
@@ -100,7 +163,7 @@ const styles = StyleSheet.create({
         width: (screenSize.width - 50) / 2,
         padding: 10,
         borderRadius: 10,
-        backgroundColor: '#cacdcf'
+        backgroundColor: 'rgba(255, 255, 255, 0.2)' // Transparent effect
     },
     menuImage: {
         width: (screenSize.width - 90) / 2,
@@ -110,7 +173,7 @@ const styles = StyleSheet.create({
     menuText: {
         fontFamily: Fonts.semiBold_SF,
         fontSize: 15,
-        color: '#525557',
+        color: '#ffffff',
         marginTop: 10
     }
 });

@@ -8,15 +8,14 @@ import {
     StyleSheet,
     ScrollView,
     TextInput,
-    Button
 } from 'react-native';
 import { screenSize } from '../constants/screens';
 import { Images } from '../constants/images';
 import { Fonts } from '../constants/fonts';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
+import Config from 'react-native-config';
 
-const HF_API_KEY = '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';
 
 const MODELS = {
     french: "Helsinki-NLP/opus-mt-en-fr",
@@ -46,7 +45,7 @@ const TranslateScreen: React.FC = () => {
             const response = await axios.post(
                 `https://api-inference.huggingface.co/models/${MODELS[selectedLanguage]}`,
                 { inputs: inputText },
-                { headers: { Authorization: `Bearer ${HF_API_KEY}` } }
+                { headers: { Authorization: `Bearer ${Config?.HF_API_KEY}` } }
             );
 
             setTranslatedText(response.data[0]?.translation_text || "No translation available");
