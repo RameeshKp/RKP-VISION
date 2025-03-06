@@ -76,13 +76,13 @@ const ChatScreen: React.FC = () => {
     const formatText = (text: any) => {
         // Regular expression to find **bold** text
         const regex = /\*\*(.*?)\*\*/g;
-        let parts = [];
+        let parts :any= [];
         let lastIndex = 0;
 
         text.replace(regex, (match: any, boldText: any, index: any) => {
             // Push normal text before bold text
             if (index > lastIndex) {
-                parts.push({ text: text.substring(lastIndex, index), bold: false });
+                parts.push({ text: text?.substring(lastIndex, index), bold: false });
             }
 
             // Push bold text

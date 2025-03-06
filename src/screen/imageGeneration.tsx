@@ -68,9 +68,11 @@ const ImageGeneration: React.FC = () => {
                 />
                 <AnimatedButton onPress={handleGenerateImage} />
 
-                {loading && <ActivityIndicator size="large" color="#0000ff" />}
+
                 {error && <Text style={styles.error}>{error}</Text>}
-                {image && <Image source={{ uri: image }} style={styles.image} />}
+                {image && !loading ? <Image source={{ uri: image }} style={styles.image} /> :
+                    loading && <ActivityIndicator size="large" color="#0000ff" style={{ marginTop: 10 }} />
+                }
             </ScrollView>
         </SafeAreaView>
     );
@@ -138,6 +140,7 @@ const styles = StyleSheet.create({
         height: 300,
         marginTop: 20,
         borderRadius: 10,
+        resizeMode: 'contain'
     },
 });
 

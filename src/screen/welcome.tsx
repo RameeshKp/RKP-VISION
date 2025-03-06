@@ -1,78 +1,27 @@
-import React, { useEffect, useRef } from 'react';
-import {
-    View,
-    Text,
-    StyleSheet,
-    Image,
-    Dimensions,
-    SafeAreaView,
-    TouchableOpacity,
-    BackHandler,
-    ScrollView,
-    Animated
-} from 'react-native';
+import React from 'react';
+import { View, Text, StyleSheet, Image, Dimensions, SafeAreaView, TouchableOpacity, BackHandler, ScrollView } from 'react-native';
 import { Images } from '../constants/images';
 import { ScreenName, screenSize } from '../constants/screens';
 import { useNavigation } from '@react-navigation/native';
 import { Fonts } from '../constants/fonts';
-import LinearGradient from 'react-native-linear-gradient';
+import LottieView from 'lottie-react-native';
 
 const { width } = Dimensions.get('window');
-
-// Animated Gradient Background Component
-const AnimatedGradientBackground = ({ children }: any) => {
-    const colorAnimation = useRef(new Animated.Value(0)).current;
-
-    useEffect(() => {
-        Animated.loop(
-            Animated.sequence([
-                Animated.timing(colorAnimation, {
-                    toValue: 1,
-                    duration: 5000,
-                    useNativeDriver: false, // ✅ Use false because colors can't be animated natively
-                }),
-                Animated.timing(colorAnimation, {
-                    toValue: 0,
-                    duration: 5000,
-                    useNativeDriver: false,
-                }),
-            ])
-        ).start();
-    }, [colorAnimation]);
-
-    // Convert hex colors to interpolated RGB values
-    const backgroundColor = colorAnimation.interpolate({
-        inputRange: [0, 0.2, 0.4, 0.6, 0.8, 1], // Expanding the range
-        outputRange: [
-            'rgb(255,0,0)',    // Red
-            'rgb(255,165,0)',  // Orange
-            'rgb(255,255,0)',  // Yellow
-            'rgb(0,255,0)',    // Green
-            'rgb(0,0,255)',    // Blue
-            'rgb(128,0,128)'   // Purple
-        ],
-    });
-
-    return (
-        <Animated.View style={[styles.gradientBackground, { backgroundColor }]}>
-            {/* <LinearGradient
-                colors={["orange", "red"]}
-                style={styles.gradientBackground}
-            >
-                {children}
-            </LinearGradient> */}
-            {children}
-        </Animated.View>
-    );
-};
-
 
 const WelcomeScreen = () => {
     const navigation: any = useNavigation();
 
     return (
-        <AnimatedGradientBackground>
         <SafeAreaView style={styles.container}>
+            {/* Lottie Animated Background */}
+            <LottieView
+                source={require('../assets/animation/animatedBackground.json')} // Place Lottie file in assets folder
+                autoPlay
+                loop
+                style={styles.lottieBackground}
+            />
+
+
             <View style={styles.headerContainer}>
                 <TouchableOpacity onPress={() => BackHandler.exitApp()}>
                     <Image source={Images.home} style={styles.backIcon} />
@@ -89,7 +38,7 @@ const WelcomeScreen = () => {
                         <TouchableOpacity
                             key={index}
                             style={[styles.menuItem, index >= 2 && { marginTop: 20 }]}
-                            onPress={() => navigation.navigate(item?.screen)}
+                            onPress={() => navigation.navigate(item.screen)}
                         >
                             <Image source={item.image} style={styles.menuImage} />
                             <Text style={styles.menuText}>{item.label}</Text>
@@ -98,7 +47,6 @@ const WelcomeScreen = () => {
                 </View>
             </ScrollView>
         </SafeAreaView>
-        </AnimatedGradientBackground>
     );
 };
 
@@ -115,9 +63,12 @@ const menuItems = [
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: '#f8f9fa',
     },
-    gradientBackground: {
-        flex: 1,
+    lottieBackground: {
+        position: 'absolute',
+        width: '100%',
+        height: "100%",
     },
     headerContainer: {
         padding: 20,
@@ -126,7 +77,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderBottomWidth: 1,
         borderBottomColor: 'grey',
-        flexDirection: 'row'
+        flexDirection: 'row',
+        // marginTop: 50
     },
     backIcon: {
         height: 25,
@@ -134,7 +86,6 @@ const styles = StyleSheet.create({
         resizeMode: 'contain',
         position: 'absolute',
         top: -15,
-        tintColor: '#FFFFFF'
     },
     headerTitleContainer: {
         width: screenSize.width - 40,
@@ -142,9 +93,9 @@ const styles = StyleSheet.create({
     },
     headerTitle: {
         fontFamily: Fonts.semiBold_SF,
-        color: '#ffffff',
+        color: '#000000',
         fontSize: 20,
-        textTransform: 'uppercase'
+        textTransform: 'uppercase',
     },
     scrollContainer: {
         flexGrow: 1,
@@ -153,7 +104,7 @@ const styles = StyleSheet.create({
     gridContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        flexWrap: 'wrap'
+        flexWrap: 'wrap',
     },
     menuItem: {
         alignItems: 'center',
@@ -163,19 +114,19 @@ const styles = StyleSheet.create({
         width: (screenSize.width - 50) / 2,
         padding: 10,
         borderRadius: 10,
-        backgroundColor: 'rgba(255, 255, 255, 0.2)' // Transparent effect
+        backgroundColor: '#cacdcf',
     },
     menuImage: {
         width: (screenSize.width - 90) / 2,
         height: (screenSize.width - 90) / 2,
-        borderRadius: 8
+        borderRadius: 8,
     },
     menuText: {
         fontFamily: Fonts.semiBold_SF,
         fontSize: 15,
-        color: '#ffffff',
-        marginTop: 10
-    }
+        color: '#525557',
+        marginTop: 10,
+    },
 });
 
 export default WelcomeScreen;

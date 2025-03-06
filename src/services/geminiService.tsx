@@ -1,10 +1,9 @@
 import axios from 'axios';
 import Config from "react-native-config";
-
 export const sendMessageToGemini = async (message: string) => {
     try {
         const response = await axios.post(
-            `${Config?.GEMINI_API_URL}?key=${Config?.GEMINI_API_KEY}`,
+            `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-pro:generateContent?key=${Config?.GEMINI_API_KEY}`,
             {
                 contents: [
                     {
@@ -26,7 +25,7 @@ export const sendMessageToGemini = async (message: string) => {
 
         return response.data.candidates[0].content.parts[0].text;
     } catch (error) {
-        console.error('Error communicating with Gemini API:', error);
+        console.error('Error communicating with Gemini API:', error?.response);
         throw error;
     }
 };
