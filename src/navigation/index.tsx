@@ -10,6 +10,7 @@ import ImageExplorer from '../screen/imageExplorer';
 import FaceComparison from '../screen/faceComparison';
 import TranslateScreen from '../screen/translate';
 import ImageGeneration from '../screen/imageGeneration';
+import Toast from 'react-native-toast-message';
 
 
 const Navigation = (item: any) => {
@@ -32,6 +33,7 @@ const Navigation = (item: any) => {
                 <Stack.Screen name={ScreenName.FACE_COMPARISON} component={FaceComparison} />
                 <Stack.Screen name={ScreenName.TRANSLATE} component={TranslateScreen} />
                 <Stack.Screen name={ScreenName.IMAGE_GENERATION} component={ImageGeneration} />
+               
             </Stack.Navigator>
 
         </>

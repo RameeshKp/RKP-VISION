@@ -3,6 +3,7 @@ import SplashScreen from 'react-native-splash-screen';
 import Navigation from './src/navigation';
 import { NavigationContainer } from '@react-navigation/native';
 import { Animated } from 'react-native';
+import Toast from 'react-native-toast-message';
 
 const App: React.FC = () => {
   const fadeAnim = new Animated.Value(1);
@@ -18,6 +19,10 @@ const App: React.FC = () => {
   return (
     <NavigationContainer>
       <Navigation />
+      <Toast
+        position='bottom'
+        bottomOffset={30}
+      />
     </NavigationContainer>
   );
 };

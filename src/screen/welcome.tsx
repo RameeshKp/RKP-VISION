@@ -1,15 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, StyleSheet, Image, Dimensions, SafeAreaView, TouchableOpacity, BackHandler, ScrollView } from 'react-native';
 import { Images } from '../constants/images';
 import { ScreenName, screenSize } from '../constants/screens';
 import { useNavigation } from '@react-navigation/native';
 import { Fonts } from '../constants/fonts';
 import LottieView from 'lottie-react-native';
-
+import Animated from 'react-native-reanimated';
+import { FadeIn, FadeInUp, FadeInDown } from 'react-native-reanimated';
 const { width } = Dimensions.get('window');
 
 const WelcomeScreen = () => {
     const navigation: any = useNavigation();
+
+
 
     return (
         <SafeAreaView style={styles.container}>
@@ -21,13 +24,14 @@ const WelcomeScreen = () => {
                 style={styles.lottieBackground}
             />
 
-
             <View style={styles.headerContainer}>
                 <TouchableOpacity onPress={() => BackHandler.exitApp()}>
                     <Image source={Images.home} style={styles.backIcon} />
                 </TouchableOpacity>
                 <View style={styles.headerTitleContainer}>
-                    <Text style={styles.headerTitle}>Welcome</Text>
+                    <Animated.Text entering={FadeInUp.duration(1800)} style={styles.headerTitle}>
+                        Welcome
+                    </Animated.Text>
                 </View>
             </View>
             <ScrollView
@@ -35,14 +39,18 @@ const WelcomeScreen = () => {
                 contentContainerStyle={styles.scrollContainer}>
                 <View style={styles.gridContainer}>
                     {menuItems.map((item, index) => (
-                        <TouchableOpacity
+                        <Animated.View
                             key={index}
-                            style={[styles.menuItem, index >= 2 && { marginTop: 20 }]}
-                            onPress={() => navigation.navigate(item.screen)}
-                        >
-                            <Image source={item.image} style={styles.menuImage} />
-                            <Text style={styles.menuText}>{item.label}</Text>
-                        </TouchableOpacity>
+                            entering={FadeIn.delay(index * 200).duration(1800)}
+                            style={[styles.menuItem, index >= 2 && { marginTop: 20 }]}>
+                            <TouchableOpacity
+                                onPress={() => navigation.navigate(item.screen)}>
+                                <Image source={item.image} style={styles.menuImage} />
+                                <Animated.Text entering={FadeInDown.duration(4800)} style={styles.menuText}>
+                                    {item.label}
+                                </Animated.Text>
+                            </TouchableOpacity>
+                        </Animated.View>
                     ))}
                 </View>
             </ScrollView>
@@ -78,7 +86,6 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderBottomColor: 'grey',
         flexDirection: 'row',
-        // marginTop: 50
     },
     backIcon: {
         height: 25,
